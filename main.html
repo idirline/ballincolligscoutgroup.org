@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Iframe Website</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        header {
+            height: 60px;
+        }
+        footer {
+            height: 40px;
+        }
+        #menu-frame {
+            width: 100%;
+            height: 60px;
+            border: none;
+        }
+        #content-frame {
+            width: 100%;
+            height: calc(100% - 100px); /* Height calculated by subtracting header and footer heights */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <iframe id="menu-frame" src="top.html" title="Menu"></iframe>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <iframe id="content-frame" src="middle.html" title="Main Content"></iframe>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 My Simple Website</p>
+    </footer>
+
+</body>
+</html>

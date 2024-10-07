@@ -6,8 +6,14 @@
     <style>
         body {
             margin: 0;
-            text-align: center;
-            background-color: #444;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            
+            /* background-color: #1b6a2f; */
+            background-color: #1b6a2f;
             color: white;
             font-family: Arial, sans-serif;
         }
@@ -17,13 +23,15 @@
             text-decoration: none;
         }
         a:hover {
+            vertical-align: middle;
             text-decoration: underline;
+            background-color: #70b8da;
         }
     </style>
 </head>
 <body>
-    <a href="home.html" target="content-frame">Home</a>
-    <a href="about.html" target="content-frame">About</a>
-    <a href="contact.html" target="content-frame">Contact</a>
+    <a href="middle.html" target="middle">Home</a>
+    <a href="calendar.html" target="middle">Calendar</a>
+    <!-- <a href="contact.html" target="content-frame">Contact</a> -->
 </body>
 </html>

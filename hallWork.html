@@ -41,27 +41,58 @@
             margin-top: 20px;
             color: #333;
         }
-        iframe {
-            /* width: 40%; */
-            /* width: calc(auto + 5px);*/
-            width: 510px;
-            /* height: 80vh; */
-            height: 200px;
-            /* height: calc(auto + 10px); */
+        /* iframe {
+
+            width: 610px;
+
+            height: 300px;
+
             border: none;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+        } */
+
+        .container {
+            /* position: relative;
+            overflow: hidden; */
+            width: 635px;
+            height: 600px;
+
+            border: 0;
+            /* background-color: aqua; */
+            /* margin: 10px; */
+
+            display: flex;
+            justify-content: center;
+
+            /*padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+        }
+
+            /* Then style the iframe to fit in the container div with full height and width */
+        .responsive-iframe {
+            /* position: absolute; */
+            /* top: 10px; */
+            /* left: 0; */
+            /* bottom: 0;
+            right: 0; */
+            width: 80%;
+            height: 80%;
+            border: none;
         }
     </style>
 </head>
 <body>
     <h1 class="h1">49th Cork, Ballincollig Scout Group</h1>
 
-    <iframe 
-        width="50%" 
-        height="50%" 
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2i_SG-bOtWX8qTzH3qT1aOC93Cxfpk9IxiVebM0EdaQ2n8Hr7MQZeRePkbqu6fBDtl16gb227BKPj/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false">
-    </iframe>
+
+    <div class="container">
+      
+        <iframe 
+            class="responsive-iframe"
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2i_SG-bOtWX8qTzH3qT1aOC93Cxfpk9IxiVebM0EdaQ2n8Hr7MQZeRePkbqu6fBDtl16gb227BKPj/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false">
+            
+        </iframe>
+    </div>
 
     <!-- Footer
     <footer>

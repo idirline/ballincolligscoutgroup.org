@@ -39,8 +39,30 @@
     <h1 class="h1">Gear</h1>
 
 
-    <div class="redboxes-horz">Welcome to the 49th Cork, Ballincollig Scout Group website.</div>
+    <div id="sheet-data"></div>
 
+    <script>
+    const sheetId = '1OgXTyzDbJdPTa_rPElYegiECC5xrhchCnsrzkOL113c';
+    const range = 'Sheet1!A1:I6';
+    const apiKey = 'AIzaSyAIgkgBmYU2urtbz5e9K-f13EJs411TUVk';
+
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`)
+        .then(res => res.json())
+        .then(data => {
+        const rows = data.values;
+        const table = document.createElement('table');
+        rows.forEach(row => {
+            const tr = document.createElement('tr');
+            row.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+            });
+            table.appendChild(tr);
+        });
+        document.getElementById('sheet-data').appendChild(table);
+        });
+    </script>
 
     
 </body>

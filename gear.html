@@ -39,30 +39,65 @@
     <h1 class="h1">Gear</h1>
 
 
-    <div id="sheet-data"></div>
+    <h1>Rows with Dates in Column A</h1>
+<div id="sheet-data">Loading...</div>
 
-    <script>
-    const sheetId = '1OgXTyzDbJdPTa_rPElYegiECC5xrhchCnsrzkOL113c';
-    const range = 'Sheet1!A1:I6';
-    const apiKey = 'AIzaSyAIgkgBmYU2urtbz5e9K-f13EJs411TUVk';
+<script>
+  const sheetId = '1OgXTyzDbJdPTa_rPElYegiECC5xrhchCnsrzkOL113c'; // <-- Replace
+  const apiKey = 'AIzaSyAIgkgBmYU2urtbz5e9K-f13EJs411TUVk';   // <-- Replace
+  const range = 'Sheet1!A1:I20';   // <-- Adjust as needed
 
-    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`)
-        .then(res => res.json())
-        .then(data => {
-        const rows = data.values;
-        const table = document.createElement('table');
-        rows.forEach(row => {
-            const tr = document.createElement('tr');
-            row.forEach(cell => {
+  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`)
+    .then(res => res.json())
+    .then(data => {
+      const rows = data.values || [];
+      const header = rows[0];
+      const dataRows = rows.slice(1);
+
+      // Utility: check if a value is a date
+      function isLikelyDate(value) {
+        return !isNaN(Date.parse(value));
+      }
+
+      const table = document.createElement('table');
+      const thead = document.createElement('thead');
+      const tbody = document.createElement('tbody');
+
+      // Table header
+      const trHead = document.createElement('tr');
+      header.forEach(col => {
+        const th = document.createElement('th');
+        th.textContent = col;
+        trHead.appendChild(th);
+      });
+      thead.appendChild(trHead);
+
+      // Table body - only rows where Column A is a valid date
+      dataRows.forEach(row => {
+        const cellA = row[0];
+        if (isLikelyDate(cellA)) {
+          const tr = document.createElement('tr');
+          header.forEach((_, i) => {
             const td = document.createElement('td');
-            td.textContent = cell;
+            td.textContent = row[i] ?? '';
             tr.appendChild(td);
-            });
-            table.appendChild(tr);
-        });
-        document.getElementById('sheet-data').appendChild(table);
-        });
-    </script>
+          });
+          tbody.appendChild(tr);
+        }
+      });
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+
+      const output = document.getElementById('sheet-data');
+      output.innerHTML = ''; // Clear loading text
+      output.appendChild(table);
+    })
+    .catch(error => {
+      document.getElementById('sheet-data').textContent = 'Error loading data.';
+      console.error('Error:', error);
+    });
+</script>
 
     
 </body>

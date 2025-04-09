@@ -1,51 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Gear</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            /* text-align: left; */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filtered Google Sheet Rows</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f0f0f0;
+    }
 
-        .h1 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    h1 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
 
-        .h4 {
-            text-align: left;
-        }
+    .table-container {
+      overflow-x: auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-        .ul {
-            text-align: left;
-        }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 300px;
+    }
 
-        .redboxes-horz {
-            position: relative;
-            /* border: 1px solid blue; */
-            width: 500px;
-            height: 100px;
-            left: 200px;
-            top: 100px;
-        }
-            </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #2196f3;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      h1 {
+        font-size: 1.2rem;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1 class="h1">Gear</h1>
 
-
-    <h1>Rows with Dates in Column A</h1>
+<h1>Dates & Selected Info</h1>
 <div id="sheet-data">Loading...</div>
 
 <script>
   const sheetId = '1OgXTyzDbJdPTa_rPElYegiECC5xrhchCnsrzkOL113c'; // <-- Replace
   const apiKey = 'AIzaSyAIgkgBmYU2urtbz5e9K-f13EJs411TUVk';   // <-- Replace
   const range = 'Sheet1!A1:I20';   // <-- Adjust as needed
+
+  // Columns to display: A and C => indices 0 and 2
+  const visibleColumnIndices = [0, 1, 7, 8];
 
   fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`)
     .then(res => res.json())
@@ -54,30 +78,32 @@
       const header = rows[0];
       const dataRows = rows.slice(1);
 
-      // Utility: check if a value is a date
       function isLikelyDate(value) {
         return !isNaN(Date.parse(value));
       }
+
+      const container = document.createElement('div');
+      container.className = 'table-container';
 
       const table = document.createElement('table');
       const thead = document.createElement('thead');
       const tbody = document.createElement('tbody');
 
-      // Table header
+      // Table headers (just selected columns)
       const trHead = document.createElement('tr');
-      header.forEach(col => {
+      visibleColumnIndices.forEach(i => {
         const th = document.createElement('th');
-        th.textContent = col;
+        th.textContent = header[i] ?? `Col ${i + 1}`;
         trHead.appendChild(th);
       });
       thead.appendChild(trHead);
 
-      // Table body - only rows where Column A is a valid date
+      // Filtered rows
       dataRows.forEach(row => {
         const cellA = row[0];
         if (isLikelyDate(cellA)) {
           const tr = document.createElement('tr');
-          header.forEach((_, i) => {
+          visibleColumnIndices.forEach(i => {
             const td = document.createElement('td');
             td.textContent = row[i] ?? '';
             tr.appendChild(td);
@@ -88,10 +114,11 @@
 
       table.appendChild(thead);
       table.appendChild(tbody);
+      container.appendChild(table);
 
       const output = document.getElementById('sheet-data');
-      output.innerHTML = ''; // Clear loading text
-      output.appendChild(table);
+      output.innerHTML = '';
+      output.appendChild(container);
     })
     .catch(error => {
       document.getElementById('sheet-data').textContent = 'Error loading data.';
@@ -99,6 +126,5 @@
     });
 </script>
 
-    
 </body>
 </html>

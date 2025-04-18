@@ -6,41 +6,63 @@
     <style>
         body {
             margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 20%;
-            -ms-transform: translate(-20%, -50%);
-            transform: translate(-50%, -50%);
-            
-            /* background-color: #1b6a2f; */
-            background-color: #1b6a2f;
-            color: white;
             font-family: Arial, sans-serif;
+            background-color: #1b6a2f;
         }
-        a {
+
+        /* Navigation Bar Container */
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: #1b6a2f;
+            padding: 15px 0;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navigation Links */
+        .menu a {
             color: white;
-            margin: 0 15px;
             text-decoration: none;
+            margin: 0 12px;
+            padding: 10px 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
         }
-        a:hover {
-            vertical-align: middle;
-            text-decoration: underline;
+
+        .menu a:hover {
             background-color: #70b8da;
+            color: #000;
+        }
+
+        /* Responsive Adjustment */
+        @media (max-width: 768px) {
+            .menu a {
+                margin: 6px;
+                padding: 8px 12px;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
 <body>
-    <strong></b><a href="middle.html" target="middle">Home</a></strong>
-    <strong><a href="calendar.html" target="middle">Calendar</a></strong>
-    <strong><a href="forms.html" target="middle">Forms</a></strong>
-    <strong><a href="documents.html" target="middle">Documents</a></strong>
-    <strong><a href="hallWork.html" target="middle">Hall Work</a></strong>
-    <strong><a href="gear.html" target="middle">Gear</a></strong>
-    <strong><a href="gear.html" target="middle">Beavers</a></strong>
-    <strong><a href="gear.html" target="middle">Cubs</a></strong>
-    <strong><a href="gear.html" target="middle">Scouts</a></strong>
-    <strong><a href="gear.html" target="middle">Ventures</a></strong>
-    <strong><a href="gear.html" target="middle">Rovers</a></strong>
-    <!-- <a href="contact.html" target="content-frame">Contact</a> -->
+
+    <div class="menu">
+        <a href="middle.html" target="middle">Home</a>
+        <a href="calendar.html" target="middle">Calendar</a>
+        <a href="forms.html" target="middle">Forms</a>
+        <a href="documents.html" target="middle">Documents</a>
+        <a href="hallWork.html" target="middle">Hall Work</a>
+        <a href="gear.html" target="middle">Gear</a>
+        <a href="beavers.html" target="middle">Beavers</a>
+        <a href="cubs.html" target="middle">Cubs</a>
+        <a href="scouts.html" target="middle">Scouts</a>
+        <a href="ventures.html" target="middle">Ventures</a>
+        <a href="rovers.html" target="middle">Rovers</a>
+    </div>
+
 </body>
 </html>
